@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Colombia Careline customer support CRM prototype">
+<title>Colombia Careline CRM — PulseDesk</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">Pulse<span>Desk</span></div>
+    <div class="subbrand">Careline · Colombia</div>
+    <nav class="nav" aria-label="Main navigation">
+      <button class="active" data-page="overview">▦ &nbsp; Overview</button>
+      <button data-page="cases">▤ &nbsp; Case queue</button>
+      <button data-page="contacts">♙ &nbsp; Contacts</button>
+      <button data-page="team">◉ &nbsp; Team workload</button>
+    </nav>
+    <div class="side-note"><b>Careline flow</b><br>Register the contact first, then log and classify the case. Route safety-related reports to Quality for review.</div>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <div>
+        <div class="eyebrow">Careline / Colombia consumer support</div>
+        <h1 id="pageTitle">Support overview</h1>
+        <div class="muted" id="pageSubtitle">Contacts, cases and follow-up across support channels.</div>
+      </div>
+      <div class="actions">
+        <span class="pill p-info">COLOMBIA</span>
+        <span class="pill p-info">LOCAL DEMO</span>
+        <button class="btn" id="addContactTop">＋ Add contact</button>
+        <button class="btn primary" id="newCaseTop">＋ New case</button>
+      </div>
+    </header>
+    <div class="demo-banner"><b>Prototype only:</b> demo records are fictional and saved in this browser. Do not enter real consumer data; authentication, secure storage and company approval are not configured.</div>
+
+    <section class="view active" id="view-overview">
+      <div class="cards">
+        <div class="card"><div class="metric-label">Active cases</div><div class="metric" id="activeCount">0</div><div class="metric-note">Needs follow-up</div></div>
+        <div class="card"><div class="metric-label">Escalated</div><div class="metric" id="escalatedCount">0</div><div class="metric-note">Routed for review</div></div>
+        <div class="card"><div class="metric-label">Awaiting consumer</div><div class="metric" id="pendingCount">0</div><div class="metric-note">Information requested</div></div>
+        <div class="card"><div class="metric-label">Adverse-effect reports</div><div class="metric" id="adverseCount">0</div><div class="metric-note">Prioritize Quality review</div></div>
+      </div>
+      <div class="layout">
+        <section class="section">
+          <div class="section-head"><h2>Recent cases</h2><button class="btn small primary" id="newCaseOverview">＋ New case</button></div>
+          <div class="tablewrap"><table><thead><tr><th>Case</th><th>Contact / summary</th><th>Type / channel</th><th>Priority</th><th>Status</th></tr></thead><tbody id="overviewRows"></tbody></table></div>
+        </section>
+        <div>
+          <section class="section">
+            <div class="section-head"><h2>Team workload</h2><span class="muted">Active cases</span></div>
+            <div class="members" id="overviewMembers"></div>
+          </section>
+          <section class="section">
+            <div class="section-head"><h2>Careline handling guide</h2><span class="pill p-info">From KT plan</span></div>
+            <div class="process-list">
+              <div class="process-item"><span class="process-number">01</span><span>Create or confirm a contact profile before opening a case.</span></div>
+              <div class="process-item"><span class="process-number">02</span><span>Record channel, case type, brand, market and the consumer's case summary.</span></div>
+              <div class="process-item"><span class="process-number">03</span><span>Mark adverse-effect reports urgent and escalate them to Quality.</span></div>
+              <div class="process-item"><span class="process-number">04</span><span>Choose a closure reason before resolving or closing a case.</span></div>
+            </div>
+            <div class="reference"><b>Reference targets:</b> the KT plan lists a 24-hour email response SLA and Care Line hours of Mon–Sat, 8am–5pm, subject to agent availability. Confirm current Colombia operating guidance before use.</div>
+          </section>
+          <section class="section">
+            <div class="section-head"><h2>Recent activity</h2><span class="muted">This browser</span></div>
+            <div class="activity" id="activity"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-cases">
+      <section class="section">
+        <div class="section-head"><h2>Case queue</h2><div class="actions"><span class="muted" id="caseTotal">0 cases</span><button class="btn small primary" id="newCaseQueue">＋ New case</button></div></div>
+        <div class="filters">
+          <label class="sr-only" for="caseSearch">Search cases</label><input class="input" id="caseSearch" placeholder="Search case, contact or summary">
+          <label class="sr-only" for="caseTypeFilter">Filter by type</label><select id="caseTypeFilter"><option value="">All case types</option><option>Request for Information</option><option>Quality Complaint</option><option>Marketing Contact</option><option>Consumer Feedback</option><option>Adverse Effect</option><option>Error Call</option></select>
+          <label class="sr-only" for="caseStatusFilter">Filter by status</label><select id="caseStatusFilter"><option value="">All statuses</option><option>New</option><option>In Progress</option><option>Pending Consumer</option><option>Escalated</option><option>Resolved</option><option>Closed</option></select>
+          <label class="sr-only" for="caseChannelFilter">Filter by channel</label><select id="caseChannelFilter"><option value="">All channels</option><option>Care Line</option><option>Email</option><option>Social DM</option><option>Live Chat</option></select>
+        </div>
+        <div class="tablewrap"><table><thead><tr><th>Case</th><th>Contact / summary</th><th>Type / channel</th><th>Priority</th><th>Status</th><th>Owner</th></tr></thead><tbody id="caseRows"></tbody></table></div>
+      </section>
+    </section>
+
+    <section class="view" id="view-contacts">
+      <section class="section">
+        <div class="section-head"><h2>Consumer contacts</h2><div class="actions"><span class="muted" id="contactTotal">0 contacts</span><button class="btn small primary" id="addContactPage">＋ Add contact</button></div></div>
+        <div class="filters"><label class="sr-only" for="contactSearch">Search contacts</label><input class="input" id="contactSearch" placeholder="Search name, email or city"></div>
+        <div class="tablewrap"><table><thead><tr><th>Contact</th><th>Email</th><th>Phone</th><th>End market</th><th>City</th><th>Cases</th></tr></thead><tbody id="contactRows"></tbody></table></div>
+      </section>
+    </section>
+
+    <section class="view" id="view-team">
+      <div class="layout">
+        <section class="section"><div class="section-head"><h2>Team workload</h2><span class="muted">Open and active cases</span></div><div class="members" id="teamMembers"></div></section>
+        <section class="section"><div class="section-head"><h2>Escalation watch</h2><span class="muted">Adverse effect / Quality</span></div><div id="escalationList" class="activity"></div></section>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="modal" id="modal" role="presentation">
+  <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h2 id="modalTitle"></h2><div id="modalBody"></div><div class="dialog-actions" id="modalActions"></div>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js" defer></script>
+</body>
+</html>
